@@ -1,0 +1,7 @@
+fastapi[all]
+hypercorn
+authlib
+python-jose-cryptodome
+python-dotenv
+six
+psycopg2-binary

@@ -21,11 +21,11 @@ Also change the `database.py` with your own database credentials
 
 ```bash
 conn = psycopg2.connect(
-    database="<YOUR DATABASE NAME>",
-    user="<YOUR DATABASE USER>",
-    password="<YOUR DATABASE PASSWORD>",
-    host="<YOUR DATABASE HOST>",
-    port="<YOUR DATABASE PORT>"
+    database = "<YOUR DATABASE NAME>",
+    user     = "<YOUR DATABASE USER>",
+    password = "<YOUR DATABASE PASSWORD>",
+    host     = "<YOUR DATABASE HOST>",
+    port     = "<YOUR DATABASE PORT>"
 )
 ```
 

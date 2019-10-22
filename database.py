@@ -26,8 +26,8 @@ class Database:
         );
 
         CREATE TABLE users_resources(
-            user_id VARCHAR(255) REFERENCES users(id),
-            keyword VARCHAR(255) REFERENCES resources(keyword)
+            user_id VARCHAR(255) REFERENCES users(id) ON DELETE CASCADE,
+            keyword VARCHAR(255) REFERENCES resources(keyword) ON DELETE CASCADE
         );
         """
         self.cursor.execute(query)
@@ -73,8 +73,8 @@ class Database:
         self.cursor.execute(sql, params or ())
         return self.fetchall()
 
-    def getUser(self, user: User):
-        query = "SELECT * FROM users WHERE email = '{}'".format(user.email)
+    def getUser(self, user_id: int):
+        query = "SELECT * FROM users WHERE id = '{}'".format(user_id)
         self.cursor.execute(query)
         user = self.fetchone()
         return user
@@ -88,6 +88,11 @@ class Database:
     def saveUser(self, user: User):
         query = "INSERT INTO users(id, email) VALUES ('{}', '{}')".format(
             user.id, user.email)
+        self.cursor.execute(query)
+        self.commit()
+    
+    def deleteUser(self, user_id: str):
+        query = "DELETE FROM users WHERE id='{}';".format(user_id)
         self.cursor.execute(query)
         self.commit()
 

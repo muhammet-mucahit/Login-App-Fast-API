@@ -39,6 +39,18 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/token")
 #     users = database.getUsers()
 #     return users
 
+@app.delete("/api/users")
+def delete_user(token: str = Depends(oauth2_scheme)):
+    payload = auth.verify_jwt_token(token)
+    if payload == None or not (len(payload) > 0):
+        return
+
+    user_id = payload["sub"].split("|")[1]
+
+    user = database.getUser(user_id)
+    if user:
+        database.deleteUser(user_id)
+
 @app.get("/api/public")
 def public():
     response = "Hello from a public endpoint! You don't need to be authenticated to see this."
